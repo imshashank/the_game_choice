@@ -1,5 +1,5 @@
 <?php
-	require_once 'alchemyapi_php/alchemyapi.php';
+	require_once 'alch/alchemyapi.php';
 	$alchemyapi = new AlchemyAPI();
 	$demo_text = $_GET['text'];
 
