@@ -9,8 +9,8 @@ hackgt.config(['$locationProvider',
 hackgt.controller('CustomCtrl', function($scope, $location, $http) {
     /*$scope.data = { categories:["Trek","Weekend", "Walking distance", "Vacation", "Day Excursion"],  list:["National Park", "Florida"]};  
      */
-    var param = $location.search().topic;
-    $http.get('http://108.61.131.41/the_game_of_choices/places/topic=' + param)
+    var param = $location.search().types;
+    $http.jsonp('http://108.61.131.41/the_game_of_choices/places/index.php?types=' + param)
         .success(function(data) {
             $scope.categories = data.categories;
         }).error(function(data) {
