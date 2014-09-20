@@ -1,41 +1,40 @@
 <?php
-//Always place this code at the top of the Page
-session_start();
-if (isset($_SESSION['id'])) {
-    // Redirection to login page twitter or facebook
-    header("location: home.php");
-}
-
-if (array_key_exists("login", $_GET)) {
-    $oauth_provider = $_GET['oauth_provider'];
-    if ($oauth_provider == 'facebook') {
-        header("Location: login-facebook.php");
-    }
-}
+session_start(); 
 ?>
-<title>The Paradox Of Choice</title>
-<style type="text/css">
-    #buttons
-	{
-	text-align:center
-	}
-    #buttons img,
-    #buttons a img
-    { border: none;}
-	h1
-	{
-	font-family:Arial, Helvetica, sans-serif;
-	color:#999999;
-	}
-	
-</style>
+<!doctype html>
+<html xmlns:fb="http://www.facebook.com/2008/fbml">
+  <head>
+    <title>Login with Facebook</title>
+<link href="http://www.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet"> 
+ </head>
+  <body>
+  <?php if ($_SESSION['FBID']): ?>      <!--  After user login  -->
+<div class="container">
+<div class="hero-unit">
+  <h1>Hello <?php echo $_SESSION['USERNAME']; ?></h1>
+  <p>Welcome to "facebook login" tutorial</p>
+  </div>
+<div class="span4">
+ <ul class="nav nav-list">
+<li class="nav-header">Image</li>
+	<li><img src="https://graph.facebook.com/<?php echo $_SESSION['USERNAME']; ?>/picture"></li>
+<li class="nav-header">Facebook ID</li>
+<li><?php echo  $_SESSION['FBID']; ?></li>
+<li class="nav-header">Facebook Username</li>
+<li><?php echo $_SESSION['USERNAME']; ?></li>
+<li class="nav-header">Facebook fullname</li>
 
 
-
-<div id="buttons">
-<h1>The Paradox Of Choice </h1>
-    &nbsp;&nbsp;&nbsp;
-    <a href="?login&oauth_provider=facebook"><img src="images/fb_login.png"></a> <br />
-	<br />
-	  
-</div>
+<li><?php echo $_SESSION['FULLNAME']; ?></li>
+<div><a href="logout.php">Logout</a></div>
+</ul></div></div>
+    <?php else: ?>     <!-- Before login --> 
+<div class="container">
+<h1>Login with Facebook</h1>
+           Not Connected
+<div>
+      <a href="fbconfig.php">Login with Facebook</a></div>
+      </div>
+    <?php endif ?>
+  </body>
+</html>

@@ -1,11 +1,10 @@
-<?php
-
-if (array_key_exists("logout", $_GET)) {
-    session_start();
-    unset($_SESSION['id']);
-    unset($_SESSION['username']);
-    unset($_SESSION['oauth_provider']);
-    session_destroy();
-    header("location: home.php");
-}
+<?php 
+session_start();
+session_unset();
+    $_SESSION['FBID'] = NULL;
+    $_SESSION['USERNAME'] = NULL;
+    $_SESSION['FULLNAME'] = NULL;
+    $_SESSION['EMAIL'] =  NULL;
+    $_SESSION['LOGOUT'] = NULL;
+header("Location: index.php");        // you can enter home page here ( Eg : header("Location: " ."http://www.krizna.com"); 
 ?>
