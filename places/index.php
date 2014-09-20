@@ -45,25 +45,31 @@ foreach ($r as $x){
 
 
 arsort($topics);
-array_push($topics, "tourist destinations", "budget travel","camping", "adventure","leisure","trekking","sightseeing");
-#shuffle($topics);
-$topics = array_slice($topics, 0, 7);
 
-$i = 0;
-foreach ($topics as $key => $value){
+for ($i =0; $i < count($topics);$i++){
+	$temp[$i]=$topics[$topics[$i]];
+}
 
-	$final_answer['categories'][$i]=$key;
+array_push($temp, "tourist destinations", "budget travel","camping", "adventure","leisure","trekking","sightseeing");
 
-	$i =$i +1;
+shuffle($temp);
+$topics = $temp;
+#$topics = array_slice($temp, 0, 7);
+
+
+for ($i =0; $i < count($topics);$i++){
+
+if($topics[$i] != null){
+
+	$final_answer['categories'][]=$topics[$i];
+
+}
+
 	#echo '<form action="'.$PHP_SELF.'" method = "GET"><input type="hidden" name="types" value="'.$key.'"><button type="submit">'.$key.' </button></form>';
 
 }
 	#var_dump($final_answer);
 
-<<<<<<< HEAD
-=======
-<?
->>>>>>> 33d18b8895c5d267305ba62fb9b27fb2917746eb
 $i = 0;
 foreach ($r as $x){
 	#var_dump($x);
@@ -77,13 +83,9 @@ foreach ($r as $x){
 	
 }
 	$answer = json_encode($final_answer);
-	echo $answer;
+	header('Content-Type: application/json');
+	echo 'jsonp('.$answer.')';
 #var_dump( $answer);
-<<<<<<< HEAD
-=======
-?>
-<?php
->>>>>>> 33d18b8895c5d267305ba62fb9b27fb2917746eb
 
 
 }
@@ -91,5 +93,6 @@ foreach ($r as $x){
 
 
 ?>
+
 
 

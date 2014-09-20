@@ -178,24 +178,7 @@ $display_address[$a5] = $response->businesses[$a5]->location->display_address;
     
  $result = array();
 
-$link = 'http://108.61.131.41/the_game_choice/places/?topic=bar'.$_GET['term'];
 
-        $ch = curl_init($link);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($ch);       
-        curl_close($ch);
-        #var_dump($output);
-        
-        $res = json_decode($output, true);
-        $cat = ($res['categories']);
-        
-        $i = 0;
-        foreach($cat as $x){
-            $result['categories'][$i]=$x;
-            $i  =$i+1;
-        }
     for($z=0;$z<10;$z++)
     {
 //print sprintf("Result for business \"%s\" found:\n", $business_id[$z]);
@@ -216,7 +199,24 @@ $result['title'][$z]['count']=$review_count[$z];
 $result['title'][$z]['url']=$url[$z];
 }
 
+$link = 'http://108.61.131.41/the_game_choice/places/?topic=bar'.$_GET['term'];
 
+        $ch = curl_init($link);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($ch);       
+        curl_close($ch);
+        #var_dump($output);
+        
+        $res = json_decode($output, true);
+        $cat = ($res['categories']);
+        
+        $i = 0;
+        foreach($cat as $x){
+            $result['categories'][$i]=$x;
+            $i  =$i+1;
+        }
 /*$post_data=array(
 'value'=>array(
  'name'=>$name[$z],

@@ -167,8 +167,28 @@ margin-left: 40%;*/
   margin-top:25px;
 }
 
-#square .draggable:hover   {
+#square .yellowgreen.draggable:hover   {
   background-color: yellowgreen;
+}
+
+#square .pink.draggable:hover   {
+  background-color: pink;
+}
+
+#square .yellow.draggable:hover   {
+  background-color: rgb(246, 247, 108);
+}
+
+#square .orange.draggable:hover   {
+  background-color: orange;
+}
+
+#square .blue.draggable:hover   {
+  background-color: rgb(67, 67, 155);
+}
+
+#square .purple.draggable:hover   {
+  background-color: rgb(128, 0, 67);
 }
 /*#droppable {
     padding: 0.5em;
