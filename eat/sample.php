@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * Yelp API v2.0 code sample.
  *
@@ -18,6 +20,8 @@
  */
 
 // Enter the path that the oauth library is in relation to the php file
+include('../places/vendor/autoload.php');
+
 require_once('lib/OAuth.php');
 
 // Set your OAuth credentials here  
@@ -31,6 +35,9 @@ $TOKEN_SECRET = "AmW_nqF-P907Epj5bKurcW3jRHw";
 
 $API_HOST = 'api.yelp.com';
 $DEFAULT_TERM = $_GET['term'];
+
+
+
 #$DEFAULT_LOCATION = $_GET['city'];
 #echo $DEFAULT_LOCATION;
 $DEFAULT_LOCATION = 'San Francisco, CA';
@@ -176,9 +183,9 @@ $display_address[$a5] = $response->businesses[$a5]->location->display_address;
     for($y=0;$y<10;$y++)
    { $response[$y] = get_business($business_id[$y]);}
     
- $result = array();
+$result = array();
 
-$link = 'http://108.61.131.41/the_game_choice/places/?topic=bar'.$_GET['term'];
+$link = 'http://nimit.me/The-Game-Of-Choices/places/?types='.$_GET['term'];
 
         $ch = curl_init($link);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -190,12 +197,13 @@ $link = 'http://108.61.131.41/the_game_choice/places/?topic=bar'.$_GET['term'];
         
         $res = json_decode($output, true);
         $cat = ($res['categories']);
-        
+       # var_dump($cat);
         $i = 0;
         foreach($cat as $x){
             $result['categories'][$i]=$x;
             $i  =$i+1;
         }
+
     for($z=0;$z<10;$z++)
     {
 //print sprintf("Result for business \"%s\" found:\n", $business_id[$z]);
@@ -217,22 +225,14 @@ $result['title'][$z]['url']=$url[$z];
 }
 
 
-/*$post_data=array(
-'value'=>array(
- 'name'=>$name[$z],
-'display_address'=>$display_address[$z][0],
-'display_phone'=>$display_phone[$z],
-'rating'=>$rating[$z],
-'review_count'=>$review_count[$z],
-'url'=>$url[$z]
-));
 
-echo json_encode($post_data);  */
+//if (isset($_POST["types"])){
+    #echo $type_post;
 
-	
+//  get_places('-33.86820', '151.1945860', '800',$type_post);
+//}
 
-        #var_dump($res->categories);
-        #var_dump( $res['categories'] );
+
 
   echo json_encode($result);
 
