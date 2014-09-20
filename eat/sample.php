@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Yelp API v2.0 code sample.
  *
@@ -32,13 +31,16 @@ $TOKEN_SECRET = "AmW_nqF-P907Epj5bKurcW3jRHw";
 
 $API_HOST = 'api.yelp.com';
 $DEFAULT_TERM = $_GET['term'];
-$DEFAULT_LOCATION = $_GET['city'];
+#$DEFAULT_LOCATION = $_GET['city'];
 #echo $DEFAULT_LOCATION;
-#$DEFAULT_LOCATION = 'San Francisco, CA';
+$DEFAULT_LOCATION = 'San Francisco, CA';
 $SEARCH_LIMIT = 10;
 $SEARCH_PATH = '/v2/search/';
 $BUSINESS_PATH = '/v2/business/';
 //$DEFAULT_OFFSET= 10;
+
+
+
 
 
 /** 
@@ -176,6 +178,24 @@ $display_address[$a5] = $response->businesses[$a5]->location->display_address;
     
  $result = array();
 
+$link = 'http://108.61.131.41/the_game_choice/places/?topic=bar'.$_GET['term'];
+
+        $ch = curl_init($link);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($ch);       
+        curl_close($ch);
+        #var_dump($output);
+        
+        $res = json_decode($output, true);
+        $cat = ($res['categories']);
+        
+        $i = 0;
+        foreach($cat as $x){
+            $result['categories'][$i]=$x;
+            $i  =$i+1;
+        }
     for($z=0;$z<10;$z++)
     {
 //print sprintf("Result for business \"%s\" found:\n", $business_id[$z]);
@@ -189,11 +209,11 @@ $display_address[$a5] = $response->businesses[$a5]->location->display_address;
 //print "{$url[$z]} \n";
 //print "\n\n";
 
-$result[$z]['name']=$name[$z];
-$result[$z]['address']=$display_address[$z][0];
-$result[$z]['phone']=$display_phone[$z];
-$result[$z]['count']=$review_count[$z];
-$result[$z]['url']=$url[$z];
+$result['title'][$z]['name']=$name[$z];
+$result['title'][$z]['address']=$display_address[$z][0];
+$result['title'][$z]['phone']=$display_phone[$z];
+$result['title'][$z]['count']=$review_count[$z];
+$result['title'][$z]['url']=$url[$z];
 }
 
 
@@ -211,6 +231,9 @@ echo json_encode($post_data);  */
 
 	
 
+        #var_dump($res->categories);
+        #var_dump( $res['categories'] );
+
   echo json_encode($result);
 
 }
@@ -218,6 +241,7 @@ echo json_encode($post_data);  */
 /**
  * User input is handled here 
  */
+
 $longopts  = array(
     "term::",
     "location::",
@@ -230,4 +254,8 @@ $location = $options['location'] ?: '';
 
 query_api($term, $location);
 
+
+
+
+        
 ?>
