@@ -47,20 +47,29 @@ foreach ($r as $x){
 arsort($topics);
 
 $output = array_slice($topics, 0, 5);
+array_push($output, "tourist destinations", "budget travel","camping", "adventure","leisure","trekking","sightseeing");
+shuffle($output);
+$output = array_slice($output, 0, 6);
 $i = 0;
 foreach ($output as $key => $value){
 
-	$final_answer['categories'][$i]=$key;
+	array_push($final_answer, $key;
+	#$final_answer['categories']=$key;
 
 	$i =$i +1;
 	#echo '<form action="'.$PHP_SELF.'" method = "GET"><input type="hidden" name="types" value="'.$key.'"><button type="submit">'.$key.' </button></form>';
 
 }
+$answer = json_encode($final_answer);
+	echo $answer;
 	#var_dump($final_answer);
 ?>
 
+<table>
 <?
-$i = 0;
+
+/*$i = 0;
+
 foreach ($r as $x){
 	#var_dump($x);
 	$final_answer['title'][$i]['name'] = $x['name'];
@@ -72,10 +81,11 @@ foreach ($r as $x){
 	#echo '<tr><td>'.$x['name'].'</td></tr>';
 	
 }
-	$answer = json_encode($final_answer);
-	echo $answer;
+*/
+	
 #var_dump( $answer);
 ?>
+</table>
 <?php
 
 
@@ -84,5 +94,6 @@ foreach ($r as $x){
 
 
 ?>
+
 
 
