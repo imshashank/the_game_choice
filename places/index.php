@@ -60,6 +60,10 @@ foreach ($topics as $key => $value){
 }
 	#var_dump($final_answer);
 
+<<<<<<< HEAD
+=======
+<?
+>>>>>>> 33d18b8895c5d267305ba62fb9b27fb2917746eb
 $i = 0;
 foreach ($r as $x){
 	#var_dump($x);
@@ -75,6 +79,11 @@ foreach ($r as $x){
 	$answer = json_encode($final_answer);
 	echo $answer;
 #var_dump( $answer);
+<<<<<<< HEAD
+=======
+?>
+<?php
+>>>>>>> 33d18b8895c5d267305ba62fb9b27fb2917746eb
 
 
 }

@@ -49,23 +49,61 @@ arsort($topics);
 $output = array_slice($topics, 0, 5);
 array_push($output, "tourist destinations", "budget travel","camping", "adventure","leisure","trekking","sightseeing");
 shuffle($output);
+<<<<<<< HEAD
 #$output = array_slice($output, 0, 6);
 $i = 0;
 foreach ($output as $key => $value){
 
 	$final_answer[$i]=$value;
 	#echo $value;
+=======
+$output = array_slice($output, 0, 6);
+$i = 0;
+foreach ($output as $key => $value){
+
+	array_push($final_answer, $key;
+>>>>>>> 33d18b8895c5d267305ba62fb9b27fb2917746eb
 	#$final_answer['categories']=$key;
 
 	$i =$i +1;
 	#echo '<form action="'.$PHP_SELF.'" method = "GET"><input type="hidden" name="types" value="'.$key.'"><button type="submit">'.$key.' </button></form>';
 
 }
+<<<<<<< HEAD
 var_dump($final_answer);
 $json_answer = json_encode($final_answer);
 	echo $json_answer;
 	#var_dump($final_answer);
 
+=======
+$answer = json_encode($final_answer);
+	echo $answer;
+	#var_dump($final_answer);
+?>
+
+<table>
+<?
+
+/*$i = 0;
+
+foreach ($r as $x){
+	#var_dump($x);
+	$final_answer['title'][$i]['name'] = $x['name'];
+	$final_answer['title'][$i]['icon'] = $x['icon'];
+	$final_answer['title'][$i]['lat'] = $x['geometry']['location']['lat'];
+	$final_answer['title'][$i]['lng'] = $x['geometry']['location']['lng'];
+	$final_answer['title'][$i]['vicinity'] = $x['vicinity'];
+	$i =$i +1;
+	#echo '<tr><td>'.$x['name'].'</td></tr>';
+	
+}
+*/
+	
+#var_dump( $answer);
+?>
+</table>
+<?php
+>>>>>>> 33d18b8895c5d267305ba62fb9b27fb2917746eb
 
 
 }
@@ -75,3 +113,7 @@ $json_answer = json_encode($final_answer);
 ?>
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 33d18b8895c5d267305ba62fb9b27fb2917746eb
