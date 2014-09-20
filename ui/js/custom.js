@@ -13,11 +13,11 @@ $(function() {
 
 
     $("#droppable").droppable({
-        activeClass: 'ui-state-hover',
-        hoverClass: 'ui-state-active',
+        /*activeClass: 'ui-state-hover',
+        /*hoverClass: 'ui-state-active',*/
         drop: function(event, ui) {
             //$(this).addClass('ui-state-highlight').find('p').html('Dropped!');
-            window.location.href = "refine.html?topic=" + ui.draggable.text().trim();
+            window.location.href = "refine.html?types=" + ui.draggable[0].id;
         },
         out: function(event, ui) {
             ui.draggable.mouseup(function() {
