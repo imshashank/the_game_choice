@@ -127,7 +127,7 @@ class API_Call {
     }
     // check $_POST varialbe
     $obj = new API_Call();
-    $obj->getGenres();
+    $obj->getPreview('In The End');
     //$obj->getPreview('i remember');
     if (array_key_exists('artist',$_POST)) {
         $obj -> getArtists($_POST['artist']);
