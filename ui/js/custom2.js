@@ -9,8 +9,13 @@ hackgt.config(['$locationProvider',
 hackgt.controller('CustomCtrl', function($scope, $location, $http) {
     /*$scope.data = { categories:["Trek","Weekend", "Walking distance", "Vacation", "Day Excursion"],  list:["National Park", "Florida"]};  
      */
+<<<<<<< HEAD
+    var param = $location.search().types;
+    $http.get('http://108.61.131.41/the_game_choice/places/index.php?types=' + param)
+=======
 /*    var param = $location.search().types;
     $http.get('http://localhost:8000/The-Game-Of-Choices/places/index.php?types=' + param)
+>>>>>>> 49c1bc872a1982cda4bc2fb60ad479323e905bbd
         .success(function(data) {
             $scope.data = data;
             callback();
@@ -92,6 +97,39 @@ hackgt.controller('CustomCtrl', function($scope, $location, $http) {
         }
     });
 
+<<<<<<< HEAD
+});
+
+
+$(document).ready(function() {
+    //Center the "info" bubble in the  "circle" div
+    setTimeout(5000,function(){
+    var divTop = ($("#square").height() - $("#middleBubble").height()) / 2;
+    var divLeft = ($("#square").width() - $("#middleBubble").width()) / 2;
+    $("#middleBubble").css("top", divTop + "px");
+    $("#middleBubble").css("left", divLeft + "px");
+
+    numItems = $(".draggable").length; //How many items are in the circle?
+    start = 0; //the angle to put the first image at. a number between 0 and 2pi
+    step = (2 * Math.PI) / numItems; //calculate the amount of space to put between the items.
+
+    $(".draggable").each(function(index) {
+        radius = ($("#square").width() - $(this).width()) / 2; //The radius is the distance from the center of the div to the middle of an icon
+        //the following lines are a standard formula for calculating points on a circle. x = cx + r * cos(a); y = cy + r * sin(a)
+        //We have made adjustments because the center of the circle is not at (0,0), but rather the top/left coordinates for the center of the div
+        //We also adjust for the fact that we need to know the coordinates for the top-left corner of the image, not for the center of the image.
+        tmpTop = (($("#square").height() / 2) + radius * Math.sin(start)) - ($(this).height() / 2);
+        tmpLeft = (($("#square").width() / 2) + radius * Math.cos(start)) - ($(this).width() / 2);
+        start += step; //add the "step" number of radians to jump to the next icon
+
+        //set the top/left settings for the image
+        $(this).css("top", tmpTop);
+        $(this).css("left", tmpLeft);
+    });
+
+}
+});
+=======
   })
   .fail(function() {
     //alert( "error" );
@@ -101,3 +139,4 @@ hackgt.controller('CustomCtrl', function($scope, $location, $http) {
 $(function() {
             
 });
+>>>>>>> 49c1bc872a1982cda4bc2fb60ad479323e905bbd
