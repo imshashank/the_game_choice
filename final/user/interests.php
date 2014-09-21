@@ -4,7 +4,7 @@ require 'src/facebook.php';  // Include facebook SDK file
 $facebook = new Facebook(array(
   'appId'  => '1545402332359139',   // Facebook App ID 
   'secret' => '3150647ac9022d01026fad806591e123',  // Facebook App Secret
-  'cookie' => true,	
+  'cookie' => true, 
 ));
 $user = $facebook->getUser();
 #if(isset($_GET['code'])){
@@ -16,30 +16,18 @@ if ($user) {
   	    $fbid = $user_profile['id'];                 // To Get Facebook ID
  	    $fbuname = $user_profile['username'];  // To Get Facebook Username
  	    $fbfullname = $user_profile['name']; // To Get Facebook full name
-<<<<<<< HEAD
 	    $femail = $user_profile['email'];  
-      $user_interests= $facebook->api('/me/interests');
+      $user_interests= $facebook->api('/me/likes/');
 
 
       $file = 'people.txt';
 // Open the file to get existing content
-$current = file_get_contents($file);
 // Append a new person to the file
 #$current .= "John Smith\n";
 // Write the contents back to the file
-file_put_contents($file, $user_interests)
+file_put_contents($file, $user_interests);
 
-      #var_dump($user_interests);// To Get Facebook email ID
-=======
-	    $femail = $user_profile['email'];    // To Get Facebook email ID
-
-
-// Open the file to get existing content
-// Append a new person to the file
-#$current .= "John Smith\n";
-// Write the contents back to the file
-
->>>>>>> a42cd1ec71054be95f86371296275a4016f82141
+      var_dump($user_interests);// To Get Facebook email ID
 	/* ---- Session Variables -----*/
 	    $_SESSION['FBID'] = $fbid;           
 	    $_SESSION['USERNAME'] = $fbuname;
@@ -51,13 +39,5 @@ file_put_contents($file, $user_interests)
    $user = null;
   }
 }
-if ($user) {
-  echo "nothing";
-	header("Location: index.php");
-} else {
- $loginUrl = $facebook->getLoginUrl(array(
-		'scope'		=> 'email', // Permissions to request from the user
-		));
- header("Location: ".$loginUrl);
-}
+
 ?>

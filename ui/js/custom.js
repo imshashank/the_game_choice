@@ -34,10 +34,10 @@ $(function() {
 
 $(document).ready(function() {
     //Center the "info" bubble in the  "circle" div
-    var divTop = ($("#square").height() - $("#middleBubble").height()) / 2;
-    var divLeft = ($("#square").width() - $("#middleBubble").width()) / 2;
-    $("#middleBubble").css("top", divTop + "px");
-    $("#middleBubble").css("left", divLeft + "px");
+    var divTop = ($("#square").height() - $("#center-panel").height()) / 2;
+    var divLeft = ($("#square").width() - $("#center-panel").width()) / 2;
+    $("#center-panel").css("top", divTop + "px");
+    $("#center-panel").css("left", divLeft + "px");
 
     numItems = $(".draggable").length; //How many items are in the circle?
     start = 0; //the angle to put the first image at. a number between 0 and 2pi

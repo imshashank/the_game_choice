@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="hackgt">
-  <head>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,50 +17,50 @@
     <!-- Custom styles for this template -->
     <link href="css/custom.css" rel="stylesheet">
     <link rel="stylesheet" href="css/jquery-ui.css">
-   </head>
+    <link rel="stylesheet" type="text/css" media="max-width: 640px" href="css/small-device.css" />
+</head>
 
-  <body ng-controller="CustomCtrl">
+<body>
 
     <div class="site-wrapper">
 
-      <div class="site-wrapper-inner">
 
         <div class="container-fluid">
+            <div class="col-xs-6">
+                <div style="bottom:30px">
+                    <h1 class="cover-heading">What would you like to do ?</h1>
+                    </p>
+                </div>
 
-        <div class="row" style="height:100%;">
-                    <div id="square">
-                        <div class="center-panel" id="droppable" style="top: 165px;left: 165px;">
-                            ?
-                        </div>
-                        <div class="draggable" ng-repeat="category in data.categories" style="font-size:14px; padding-top:40px">
+                <div id="square">
+                    <div class="center-panel" id="droppable" style="top: 165px;left: 165px;">
+                        ?
+                    </div>
+                    <!-- <div class="draggable" ng-repeat="category in data.categories" style="font-size:14px; padding-top:40px">
                             {{category}}
-                        </div>
-        </div>
-        </div>       
+                        </div>-->
+                </div>
+            </div>
 
-        <!--<div class="row">
+            <!--<div class="row">
           <div class="col-sm-4 center" ng-repeat="category in data.categories">
             <div class="draggable" ng-class="{'shift-left':$index%6>=3}">
               {{category}}
             </div>
           </div>
           </div>-->
-          <div style="bottom:30px">
-            <h1 class="cover-heading">What would you like to do ?</h1>
-            </p>
-          </div>
 
-          <div class="mastfoot">
-            <div class="inner">
-              <p></p>
+            <div id="result" class="col-xs-6">
             </div>
-          </div>
-
         </div>
-
-      </div>
-
     </div>
+    <div class="mastfoot">
+        <div class="inner">
+            <p></p>
+        </div>
+    </div>
+
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -70,5 +71,6 @@
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/custom2.js"></script>
-  </body>
+</body>
+
 </html>
