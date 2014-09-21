@@ -21,8 +21,8 @@ class API_Call {
                 $output[$i] = $json['data'][$i]['name'];
             }
             $post_data = json_encode(array('genres' => $output), JSON_FORCE_OBJECT);
-            echo "</br>";
-            echo $post_data;
+           # echo "</br>";
+           # echo $post_data;
             //var_dump($post_data);
             return $post_data;
         }
@@ -127,6 +127,21 @@ class API_Call {
     }
     // check $_POST varialbe
     $obj = new API_Call();
+    if ( $_GET=['types']){
+    $genres = $obj->getGenres();
+    #var_dump($genres);
+    $genres=json_decode($genres);
+    foreach ($genres as $x => $y){
+    $result['categories'][]=$y;
+    #var_dump($result);
+    
+    }
+     $result['title'][]='';
+        echo json_encode($result);
+    }
+
+    
+    /*
     $obj->getPreview('In The End');
     //$obj->getPreview('i remember');
     if (array_key_exists('artist',$_POST)) {
@@ -135,4 +150,5 @@ class API_Call {
     if (array_key_exists('tracks',$_POST)) {
         $obj -> getSongs($_POST['tracks']);
     }
+    */
 ?>
