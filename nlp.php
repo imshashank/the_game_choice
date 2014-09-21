@@ -30,7 +30,20 @@ $response = $alchemyapi->taxonomy('text',$demo_text, null);
 		#echo 'Error in the taxonomy call: ', $response['statusInfo'];
 	}
 
-echo json_encode($result);
+$result = array();
+
+$link = 'http://nimit.me/The-Game-Of-Choices/places/?types='.$_GET[implode(" ",$result)];
+
+        $ch = curl_init($link);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($ch);       
+        curl_close($ch);
+        #var_dump($output);
+        echo $output;
+        #$res = json_decode($output, true);
+#echo json_encode($result);
 
 
 ?>

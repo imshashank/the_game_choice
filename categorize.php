@@ -16,7 +16,7 @@ $response = $alchemyapi->taxonomy('text',$demo_text, null);
 		foreach ($response['taxonomy'] as $category) {
 			$x = explode('/',$category['label']);
 			foreach ($x as $y){
-				if($result[$y] == '' && $y != ''){
+				if(!isset($result[$y]) && $y != ''){
 					$result[$y]=$category['score'];
 				}
 
@@ -34,4 +34,3 @@ echo json_encode($result);
 
 
 ?>
-

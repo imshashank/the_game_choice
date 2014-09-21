@@ -16,6 +16,21 @@ if ($user) {
   	    $fbid = $user_profile['id'];                 // To Get Facebook ID
  	    $fbuname = $user_profile['username'];  // To Get Facebook Username
  	    $fbfullname = $user_profile['name']; // To Get Facebook full name
+<<<<<<< HEAD
+	    $femail = $user_profile['email'];  
+      $user_interests= $facebook->api('/me/interests');
+
+
+      $file = 'people.txt';
+// Open the file to get existing content
+$current = file_get_contents($file);
+// Append a new person to the file
+#$current .= "John Smith\n";
+// Write the contents back to the file
+file_put_contents($file, $user_interests)
+
+      #var_dump($user_interests);// To Get Facebook email ID
+=======
 	    $femail = $user_profile['email'];    // To Get Facebook email ID
 
 
@@ -24,6 +39,7 @@ if ($user) {
 #$current .= "John Smith\n";
 // Write the contents back to the file
 
+>>>>>>> a42cd1ec71054be95f86371296275a4016f82141
 	/* ---- Session Variables -----*/
 	    $_SESSION['FBID'] = $fbid;           
 	    $_SESSION['USERNAME'] = $fbuname;
@@ -36,6 +52,7 @@ if ($user) {
   }
 }
 if ($user) {
+  echo "nothing";
 	header("Location: index.php");
 } else {
  $loginUrl = $facebook->getLoginUrl(array(

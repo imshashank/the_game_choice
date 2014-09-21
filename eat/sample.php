@@ -34,7 +34,7 @@ $TOKEN_SECRET = "AmW_nqF-P907Epj5bKurcW3jRHw";
 
 
 $API_HOST = 'api.yelp.com';
-$DEFAULT_TERM = $_GET['term'];
+$DEFAULT_TERM = $_GET['types'];
 
 
 
@@ -102,7 +102,7 @@ function request($host, $path) {
 function search($term, $location) {
     $url_params = array();
     
-    $url_params['term'] = $term ?: $GLOBALS['DEFAULT_TERM'];
+    $url_params['types'] = $term ?: $GLOBALS['DEFAULT_TERM'];
     //$url_params['offset'] = $GLOBALS['DEFAULT_OFFSET'];
     $url_params['location'] = $location?: $GLOBALS['DEFAULT_LOCATION'];
     $url_params['limit'] = $GLOBALS['SEARCH_LIMIT'];
@@ -185,23 +185,54 @@ $display_address[$a5] = $response->businesses[$a5]->location->display_address;
     
 $result = array();
 
-$link = 'http://nimit.me/The-Game-Of-Choices/places/?types='.$_GET['term'];
+$link = 'http://nimit.me/the_game_choice/categorize.php/?text='.$_GET['types'];
 
-        $ch = curl_init($link);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($ch);       
-        curl_close($ch);
+        $curl = curl_init();
+// Set some options - we are passing in a useragent too here
+curl_setopt_array($curl, array(
+    CURLOPT_RETURNTRANSFER => 1,
+    CURLOPT_URL => $link,
+));
+// Send the request & save response to $resp
+$output = curl_exec($curl);
+// Close request to clear up some resources
+curl_close($curl);
         #var_dump($output);
         
-        $res = json_decode($output, true);
-        $cat = ($res['categories']);
-       # var_dump($cat);
-        $i = 0;
-        foreach($cat as $x){
-            $result['categories'][$i]=$x;
+        $cat = json_decode($output, true);
+       # $cat = ($res['categories']);
+        #var_dump($cat);
+    
+        $pre = str_replace("%20", "&", $_GET["pre"]);
+        #var_dump($_GET["pre"]);
+        $pre = str_replace(" ", "-", $_GET["pre"]);
+        $pre_a =  explode('&',$pre);
+
+
+
+$pre_arr=array();
+
+for ($i = 0;$i<count($pre_a);$i++){
+    $pre_arr[$pre_a[$i]]= True;
+}
+
+        foreach($cat as $x => $y){
+            if(!isset($pre_arr[$x])){
+            $result['categories'][]=$x;
             $i  =$i+1;
+        }
+        }
+
+        if($_GET['types'] == 'food'){
+            $result['categories']['0']='Indian';
+            $result['categories']['1']='Spicy';
+            $result['categories']['2']='Mexican';
+            $result['categories']['3']='American';
+            $result['categories']['4']='Junk';
+            $result['categories']['5']='Thai';
+            $result['categories']['6']='Just Good';
+            $result['categories']['6']='Simple';
+
         }
 
     for($z=0;$z<10;$z++)
@@ -232,7 +263,7 @@ $result['title'][$z]['url']=$url[$z];
 //  get_places('-33.86820', '151.1945860', '800',$type_post);
 //}
 
-
+header('Content-Type: application/json');
 
   echo json_encode($result);
 
@@ -249,7 +280,7 @@ $longopts  = array(
     
 $options = getopt("", $longopts);
 
-$term = $options['term'] ?: '';
+$term = $options['types'] ?: '';
 $location = $options['location'] ?: '';
 
 query_api($term, $location);
