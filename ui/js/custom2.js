@@ -49,6 +49,14 @@ else if (window.location.search.indexOf("music") >= 0) {
     var jqxhr = $.ajax("http://localhost:8000/The-Game-Of-Choices/music/API_Call.php?types=" + x)
         .done(function(data) {
             //alert( "success" );
+            if(x.indexOf("music")==0){
+                var arr = [];
+                var json  = JSON.parse(data);
+                for(key in Object.keys(json.categories[0])){
+                    arr.push(json.categories[0][key]);
+                }
+                data = {categories:arr};
+            }
             successHandler(data);
         })
         .fail(function() {
@@ -165,7 +173,7 @@ function successHandler(data) {
         var list = y.append("<ul class='list-group'></ul>").find('ul');
         for (index = 0; index < title_length; ++index) {
             if(window.location.search.indexOf("travel") >= 0){
-                list.append("<li class='list-group-item'><img src='" + data.title[index].icon + " ' height = '13px' width='13px' style='margin-right:10px'/>" + data.title[index].name + ", " + data.title[index].vicinity + "<img style='text-align:right; overflow:hidden;' src='../images/map_icon.png' no-repeat 0 0;height:30px;width:16px'><a style='display:block;height:30px;width:16px' href='https://maps.google.com/maps?id=\'" + data.title[index].vicinity + "\''></a></span> </li>");
+                list.append("<li class='list-group-item'><img src='" + data.title[index].icon + " ' height = '13px' width='13px' style='margin-right:10px'/>" + data.title[index].name + ", " + data.title[index].vicinity + "<a style='height:30px;width:16px' href='https://maps.google.com/maps?id=" + data.title[index].vicinity + "'></a><div height:30px;width:16px background:url(images/map_icon.png) 0 0px></div> </li>");
             }
             else if(window.location.search.indexOf("food") >= 0){
                 list.append("<li class='list-group-item'>" + data.title[index].name +", " + data.title[index].address + ", <span class='glyphicon glyphicon-phone-alt' style='margin-left:5px;'/>" + data.title[index].phone + "<a style='color:#2E448A; float:right' href='" + data.title[index].url + "' target='_blank'><span class='glyphicon glyphicon-globe' style:'font-size: 16px;'></a></div> </li>");    
