@@ -84,7 +84,7 @@ foreach ($r as $x){
 }
 	$answer = json_encode($final_answer);
 	header('Content-Type: application/json');
-	echo 'jsonp('.$answer.')';
+	echo $answer;
 #var_dump( $answer);
 
 
