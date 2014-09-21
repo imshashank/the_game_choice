@@ -34,7 +34,7 @@ $TOKEN_SECRET = "AmW_nqF-P907Epj5bKurcW3jRHw";
 
 
 $API_HOST = 'api.yelp.com';
-$DEFAULT_TERM = $_GET['term'];
+$DEFAULT_TERM = $_GET['types'];
 
 
 
@@ -102,7 +102,7 @@ function request($host, $path) {
 function search($term, $location) {
     $url_params = array();
     
-    $url_params['term'] = $term ?: $GLOBALS['DEFAULT_TERM'];
+    $url_params['types'] = $term ?: $GLOBALS['DEFAULT_TERM'];
     //$url_params['offset'] = $GLOBALS['DEFAULT_OFFSET'];
     $url_params['location'] = $location?: $GLOBALS['DEFAULT_LOCATION'];
     $url_params['limit'] = $GLOBALS['SEARCH_LIMIT'];
@@ -185,7 +185,7 @@ $display_address[$a5] = $response->businesses[$a5]->location->display_address;
     
 $result = array();
 
-$link = 'http://nimit.me/the_game_choice/categorize.php/?text='.$_GET['term'];
+$link = 'http://nimit.me/the_game_choice/categorize.php/?text='.$_GET['types'];
 
         $curl = curl_init();
 // Set some options - we are passing in a useragent too here
@@ -223,7 +223,7 @@ for ($i = 0;$i<count($pre_a);$i++){
         }
         }
 
-        if($_GET['term'] == 'eat'){
+        if($_GET['types'] == 'food'){
             $result['categories']['0']='Indian';
             $result['categories']['1']='Spicy';
             $result['categories']['2']='Mexican';
@@ -263,7 +263,7 @@ $result['title'][$z]['url']=$url[$z];
 //  get_places('-33.86820', '151.1945860', '800',$type_post);
 //}
 
-
+header('Content-Type: application/json');
 
   echo json_encode($result);
 
@@ -280,7 +280,7 @@ $longopts  = array(
     
 $options = getopt("", $longopts);
 
-$term = $options['term'] ?: '';
+$term = $options['types'] ?: '';
 $location = $options['location'] ?: '';
 
 query_api($term, $location);
