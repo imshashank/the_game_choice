@@ -259,4 +259,6 @@ margin-left: 40%;
 
 #result{
     margin-top:60px;
+    max-height: 650px;
+overflow: scroll;
 }
