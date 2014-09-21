@@ -223,6 +223,18 @@ for ($i = 0;$i<count($pre_a);$i++){
         }
         }
 
+        if($_GET['term'] == 'eat'){
+            $result['categories']['0']='Indian';
+            $result['categories']['1']='Spicy';
+            $result['categories']['2']='Mexican';
+            $result['categories']['3']='American';
+            $result['categories']['4']='Junk';
+            $result['categories']['5']='Thai';
+            $result['categories']['6']='Just Good';
+            $result['categories']['6']='Simple';
+
+        }
+
     for($z=0;$z<10;$z++)
     {
 //print sprintf("Result for business \"%s\" found:\n", $business_id[$z]);
