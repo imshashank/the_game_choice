@@ -185,23 +185,42 @@ $display_address[$a5] = $response->businesses[$a5]->location->display_address;
     
 $result = array();
 
-$link = 'http://nimit.me/The-Game-Of-Choices/places/?types='.$_GET['term'];
+$link = 'http://nimit.me/the_game_choice/categorize.php/?text='.$_GET['term'];
 
-        $ch = curl_init($link);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($ch);       
-        curl_close($ch);
+        $curl = curl_init();
+// Set some options - we are passing in a useragent too here
+curl_setopt_array($curl, array(
+    CURLOPT_RETURNTRANSFER => 1,
+    CURLOPT_URL => $link,
+));
+// Send the request & save response to $resp
+$output = curl_exec($curl);
+// Close request to clear up some resources
+curl_close($curl);
         #var_dump($output);
         
-        $res = json_decode($output, true);
-        $cat = ($res['categories']);
-       # var_dump($cat);
-        $i = 0;
-        foreach($cat as $x){
-            $result['categories'][$i]=$x;
+        $cat = json_decode($output, true);
+       # $cat = ($res['categories']);
+        #var_dump($cat);
+    
+        $pre = str_replace("%20", "&", $_GET["pre"]);
+        #var_dump($_GET["pre"]);
+        $pre = str_replace(" ", "-", $_GET["pre"]);
+        $pre_a =  explode('&',$pre);
+
+
+
+$pre_arr=array();
+
+for ($i = 0;$i<count($pre_a);$i++){
+    $pre_arr[$pre_a[$i]]= True;
+}
+
+        foreach($cat as $x => $y){
+            if(!isset($pre_arr[$x])){
+            $result['categories'][]=$x;
             $i  =$i+1;
+        }
         }
 
     for($z=0;$z<10;$z++)
