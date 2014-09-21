@@ -45,6 +45,16 @@ if (window.location.search.indexOf("travel") >= 0) {
             //alert( "error" );
         })
 }
+else if (window.location.search.indexOf("music") >= 0) {
+    var jqxhr = $.ajax("http://localhost:8000/The-Game-Of-Choices/eat/sample.php?types=" + x)
+        .done(function(data) {
+            //alert( "success" );
+            successHandler(data);
+        })
+        .fail(function() {
+            //alert( "error" );
+        })
+}
 
 function successHandler(data) {
 
@@ -158,7 +168,7 @@ function successHandler(data) {
                 list.append("<li class='list-group-item'><img src='" + data.title[index].icon + " ' height = '13px' width='13px' style='margin-right:10px'/>" + data.title[index].name + ", " + data.title[index].vicinity + "<img style='text-align:right; overflow:hidden;' src='../images/map_icon.png' no-repeat 0 0;height:30px;width:16px'><a style='display:block;height:30px;width:16px' href='https://maps.google.com/maps?id=\'" + data.title[index].vicinity + "\''></a></span> </li>");
             }
             else if(window.location.search.indexOf("food") >= 0){
-                list.append("<li class='list-group-item'>" + data.title[index].name +", " + data.title[index].address + ", " + data.title[index].phone + "<span class='glyphicon glyphicon-globe'><a style='display:block;height:30px;width:16px' href='" + data.title[index].url + "'></a></span> </li>");    
+                list.append("<li class='list-group-item'>" + data.title[index].name +", " + data.title[index].address + ", <span class='glyphicon glyphicon-phone-alt' style='margin-left:5px;'/>" + data.title[index].phone + "<a style='color:#2E448A; float:right' href='" + data.title[index].url + "' target='_blank'><span class='glyphicon glyphicon-globe' style:'font-size: 16px;'></a></div> </li>");    
             }
         }
     }
