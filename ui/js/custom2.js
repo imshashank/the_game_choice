@@ -10,7 +10,7 @@ hackgt.controller('CustomCtrl', function($scope, $location, $http) {
     /*$scope.data = { categories:["Trek","Weekend", "Walking distance", "Vacation", "Day Excursion"],  list:["National Park", "Florida"]};  
      */
     var param = $location.search().types;
-    $http.jsonp('http://108.61.131.41/the_game_choice/places/index.php?types=' + param)
+    $http.get('http://108.61.131.41/the_game_choice/places/index.php?types=' + param)
         .success(function(data) {
             $scope.data = data;
         }).error(function(data) {
@@ -60,6 +60,7 @@ $(function() {
 
 $(document).ready(function() {
     //Center the "info" bubble in the  "circle" div
+    setTimeout(5000,function(){
     var divTop = ($("#square").height() - $("#middleBubble").height()) / 2;
     var divLeft = ($("#square").width() - $("#middleBubble").width()) / 2;
     $("#middleBubble").css("top", divTop + "px");
@@ -83,5 +84,5 @@ $(document).ready(function() {
         $(this).css("left", tmpLeft);
     });
 
-
+}
 });
