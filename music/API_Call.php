@@ -18,12 +18,13 @@ class API_Call {
             $output = array();
             // filter the results to only show the name of the genres
             for ($i = 0; $i < $json['info']['count']; $i++) {
-                $output[$i] = $json['data'][$i]['name'];
+                $tempStr = $json['data'][$i]['name'];
+                $output[$i] = substr($tempStr, 6);
             }
             $post_data = json_encode(array('genres' => $output), JSON_FORCE_OBJECT);
            # echo "</br>";
            # echo $post_data;
-            //var_dump($post_data);
+            var_dump($post_data);
             return $post_data;
         }
 
@@ -46,6 +47,7 @@ class API_Call {
             }
             $post_data = json_encode(array('artists' => $output), JSON_FORCE_OBJECT);
             curl_close($curl);
+            var_dump($output);
             return $post_data;
         }
 
@@ -127,22 +129,22 @@ class API_Call {
     }
     // check $_POST varialbe
     $obj = new API_Call();
-    if ( $_GET=['types']){
-    $genres = $obj->getGenres();
-    #var_dump($genres);
-    $genres=json_decode($genres);
-    foreach ($genres as $x => $y){
-    $result['categories'][]=$y;
-    #var_dump($result);
-    
-    }
-     $result['title'][]='';
-        echo json_encode($result);
-    }
+    // if ( $_GET=['types']){
+    // $genres = $obj->getGenres();
+    // #var_dump($genres);
+    // $genres=json_decode($genres);
+    // foreach ($genres as $x => $y){
+    // $result['categories'][]=$y;
+    // #var_dump($result);
+    //
+    // }
+    //  $result['title'][]='';
+    //     echo json_encode($result);
+    // }
 
-    
-    /*
-    $obj->getPreview('In The End');
+
+    $obj->getGenres();
+    $obj->getArtists('rock');
     //$obj->getPreview('i remember');
     if (array_key_exists('artist',$_POST)) {
         $obj -> getArtists($_POST['artist']);
@@ -150,5 +152,5 @@ class API_Call {
     if (array_key_exists('tracks',$_POST)) {
         $obj -> getSongs($_POST['tracks']);
     }
-    */
+
 ?>
