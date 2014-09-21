@@ -18,16 +18,19 @@ class API_Call {
             $output = array();
             // filter the results to only show the name of the genres
             for ($i = 0; $i < $json['info']['count']; $i++) {
-                $output[$i] = $json['data'][$i]['name'];
+                $tempStr = $json['data'][$i]['name'];
+                $output[$i] = substr($tempStr, 6);
             }
-            $post_data = json_encode(array('genres' => $output), JSON_FORCE_OBJECT);
-            echo "</br>";
-            echo $post_data;
-            //var_dump($post_data);
+            $post_data = json_encode(array('categories' => $output), JSON_FORCE_OBJECT);
+           # echo "</br>";
+           # echo $post_data;
+            #var_dump($post_data);
             return $post_data;
         }
 
         public function getArtists($genre) {
+
+           # echo $genre;
             $key = 'FRK9EWQRQHV80DW4S';
             $url = 'http://developer.echonest.com/api/v4/genre/artists?api_key='.$key.'&format=json&name='.$genre;
             $curl = curl_init();
@@ -41,11 +44,12 @@ class API_Call {
             $output = array();
             for ($i=0; $i < count($json['response']['artists']); $i++) {
                 $output[$i] = $json['response']['artists'][$i]['name'];
-                echo $output[$i];
-                echo "</br>";
+                #echo $output[$i];
+                #echo "</br>";
             }
-            $post_data = json_encode(array('artists' => $output), JSON_FORCE_OBJECT);
+            $post_data = json_encode(array('artists' => $output),JSON_FORCE_OBJECT);
             curl_close($curl);
+            var_dump($output);
             return $post_data;
         }
 
@@ -124,10 +128,87 @@ class API_Call {
             $post_data = json_encode(array('previews' => $output), JSON_FORCE_OBJECT);
             return $post_data;
         }
+        // return a JSON object in following format:
+        //     categories: list of genres
+        //     songs: list of songs from that genre
+        public function fullSweep($genre) {
+            // if $genre = "" then songs will the empty
+
+        }
     }
     // check $_POST varialbe
     $obj = new API_Call();
-    $obj->getGenres();
+    // if ( $_GET=['types']){
+    // $genres = $obj->getGenres();
+    // #var_dump($genres);
+    // $genres=json_decode($genres);
+    // foreach ($genres as $x => $y){
+    // $result['categories'][]=$y;
+    // #var_dump($result);
+    //
+    // }
+    //  $result['title'][]='';
+    //     echo json_encode($result);
+    // }
+
+
+    //$obj->getGenres();
+    #$obj->getArtists('rock');
+    if ( $_GET['types'] == 'music'){
+    $genres = $obj->getGenres();
+    #var_dump($genres);
+    $genres=json_decode($genres);
+    foreach ($genres as $x => $y){
+    $result['categories'][]=$y;
+    #var_dump($result);
+    }
+     $result['title'][]='';
+        echo json_encode($result);
+    }
+
+    if ( $_GET['types'] == 'genre'){
+        $pre = $_GET['pre'];
+        $pre = str_replace(' ', '%20', $pre);
+        echo $pre;
+    $artists = $obj->getArtists($_GET['pre']);
+    var_dump($artists);
+
+    foreach ($artists as $x => $y){
+    $result['categories'][]=$y;
+    #var_dump($result);
+    }
+     $result['title'][]='';
+        echo json_encode($result);
+    }
+
+
+    if ( $_GET=['types'] == 'artist'){
+    $genres = $obj->getGenres();
+    #var_dump($genres);
+    $genres=json_decode($genres);
+    foreach ($genres as $x => $y){
+    $result['categories'][]=$y;
+    #var_dump($result);
+    }
+     $result['title'][]='';
+        echo json_encode($result);
+    }
+
+    if ( $_GET=['types'] == 'songs'){
+    $genres = $obj->getGenres();
+    #var_dump($genres);
+    $genres=json_decode($genres);
+    foreach ($genres as $x => $y){
+    $result['categories'][]=$y;
+    #var_dump($result);
+    }
+     $result['title'][]='';
+        echo json_encode($result);
+    }
+
+
+    /*
+    $obj->getPreview('In The End');
     //$obj->getPreview('i remember');
     if (array_key_exists('artist',$_POST)) {
         $obj -> getArtists($_POST['artist']);
@@ -135,4 +216,6 @@ class API_Call {
     if (array_key_exists('tracks',$_POST)) {
         $obj -> getSongs($_POST['tracks']);
     }
+    */
+
 ?>

@@ -23,20 +23,40 @@ hackgt.controller('CustomCtrl', function($scope, $location, $http) {
 
 //  var x;
 
-var param = window.location.search.substring(window.location.search.indexOf("=") + 1)
-if (param === "travel") {
-var jqxhr = $.ajax("http://localhost:8000/The-Game-Of-Choices/places/index.php?types=" + param)
-    .done(function(data) {
-        //alert( "success" );
-        successHandler(data);
-    })
-    .fail(function() {
-        //alert( "error" );
-    })
-} else if (param === "food") {
-    var jqxhr = $.ajax("http://localhost:8000/The-Game-Of-Choices/eat/index.php?types=" + param)
+//var param = window.location.search.substring(window.location.search.indexOf("=") + 1)
+var x = window.location.search.substring(window.location.search.indexOf("types=") + 6);
+if (window.location.search.indexOf("travel") >= 0) {
+
+    var jqxhr = $.ajax("http://quickchoice.me/The-Game-Of-Choices/places/index.php?types=" + x)
         .done(function(data) {
             //alert( "success" );
+            successHandler(data);
+        })
+        .fail(function() {
+            //alert( "error" );
+        })
+} else if (window.location.search.indexOf("food") >= 0) {
+    var jqxhr = $.ajax("http://quickchoice.me/The-Game-Of-Choices/eat/sample.php?types=" + x)
+        .done(function(data) {
+            //alert( "success" );
+            successHandler(data);
+        })
+        .fail(function() {
+            //alert( "error" );
+        })
+}
+else if (window.location.search.indexOf("music") >= 0) {
+    var jqxhr = $.ajax("http://quickchoice.me/The-Game-Of-Choices/music/API_Call.php?types=" + x)
+        .done(function(data) {
+            //alert( "success" );
+            if(x.indexOf("music")==0){
+                var arr = [];
+                var json  = JSON.parse(data);
+                for(key in Object.keys(json.categories[0])){
+                    arr.push(json.categories[0][key]);
+                }
+                data = {categories:arr};
+            }
             successHandler(data);
         })
         .fail(function() {
@@ -61,11 +81,11 @@ function successHandler(data) {
 
     var x = $("#square");
     for (index = 0; index < category_length; ++index) {
-        if (data.categories[index] === unescape(param)) {
+        /*if (data.categories[index] === unescape(param)) {
             x.append("<div class='draggable' style='font-size:14px; padding-top:40px; border: 2px solid rgb(39, 189, 236); background-color: rgb(200, 232, 245);'>" + data.categories[index] + "</div>");
-        } else {
-            x.append("<div class='draggable' style='font-size:14px; padding-top:40px'>" + data.categories[index] + "</div>");
-        }
+        } else {*/
+        x.append("<div class='draggable' style='font-size:14px; padding-top:40px'>" + data.categories[index] + "</div>");
+        //}
     }
 
     var divTop = ($("#square").height() - $(".center-panel").height()) / 2;
@@ -110,19 +130,31 @@ function successHandler(data) {
             var prev_term_start = window.location.search.indexOf("types=") + 6;
             var prev_term_end = window.location.search.indexOf("pre=") - 4;
             var prev_term;
-            if(prev_term_end>=0){
-                prev_term = window.location.search.substring(prev_term_start, prev_term_end);
-            }
-            else{
-                prev_term = window.location.search.substring(prev_term_start);   
+            if (prev_term_end >= 0) {
+                prev_term = window.location.search.substring(prev_term_start, prev_term_start+prev_term_end-4);
+            } else {
+                prev_term = window.location.search.substring(prev_term_start);
             }
             var newUrl = "refine.html?types=" + ui.draggable.text().trim();
-            if (newUrl.indexOf("&pre=") >= 0) {
-                window.location.href = newUrl + " " + prev_term;
+            var term = window.location.search.indexOf("&pre=");
+            if ( term >= 0) {
+                window.location.href = newUrl + " " + window.location.search.substring(term) +" " + prev_term;
+            } else {
+                window.location.href = newUrl + "&pre=" + prev_term;
             }
-            else{
-                window.location.href = newUrl + "&pre=" + prev_term;    
-            }
+            /*var xhr = $.ajax(newUrl)
+                .done(function(data) {
+                    //alert( "success" );
+                    successHandler(data);
+                })
+                .fail(function() {
+                    //alert( "error" );
+                })
+            */
+            setTimeout(function() {
+                window.location.reload(true);
+            }, 100)
+            //window.location.reload();
         },
         out: function(event, ui) {
             ui.draggable.mouseup(function() {
@@ -140,7 +172,15 @@ function successHandler(data) {
     if (title_length != 0) {
         var list = y.append("<ul class='list-group'></ul>").find('ul');
         for (index = 0; index < title_length; ++index) {
-            list.append("<li class='list-group-item'><img src='" + data.title[index].icon + " ' height = '13px' width='13px' style='margin-right:10px'/>" + data.title[index].name + ", " + data.title[index].vicinity + "<img style='text-align:right; overflow:hidden;' src='../images/map_icon.png' no-repeat 0 0;height:30px;width:16px'><a style='display:block;height:30px;width:16px' href='https://maps.google.com/maps?id=\'" + data.title[index].vicinity + "\''></a></span> </li>");
+            if(window.location.search.indexOf("travel") >= 0){
+                list.append("<li class='list-group-item'><img src='" + data.title[index].icon + " ' height = '13px' width='13px' style='margin-right:10px'/>" + data.title[index].name + ", " + data.title[index].vicinity + "<a style='height:30px;width:16px' href='https://maps.google.com/maps?id=" + data.title[index].vicinity + "'></a><div class='map_icon'></div> </li>");
+            }
+            else if(window.location.search.indexOf("food") >= 0){
+                list.append("<li class='list-group-item'>" + data.title[index].name +", " + data.title[index].address + ", <span class='glyphicon glyphicon-phone-alt' style='margin-left:5px;'/>" + data.title[index].phone + "<a style='color:#2E448A; float:right' href='" + data.title[index].url + "' target='_blank'><span class='glyphicon glyphicon-globe' style:'font-size: 16px;'></a></div> </li>");    
+            }
+            else if(window.location.search.indexOf("music") >= 0){
+                list.append("<li class='list-group-item'>" + data.title[index].name +", " + data.title[index].address + ", <span class='glyphicon glyphicon-phone-alt' style='margin-left:5px;'/>" + data.title[index].phone + "<a style='color:#2E448A; float:right' href='" + data.title[index].url + "' target='_blank'><span class='glyphicon glyphicon-globe' style:'font-size: 16px;'></a></div> </li>");    
+            }
         }
     }
 

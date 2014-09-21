@@ -1,6 +1,4 @@
 <?php
-
-
 /**
  * Yelp API v2.0 code sample.
  *
@@ -263,8 +261,12 @@ $result['title'][$z]['url']=$url[$z];
 //  get_places('-33.86820', '151.1945860', '800',$type_post);
 //}
 
+<<<<<<< HEAD
 
     header('Content-Type: application/json');
+=======
+header('Content-Type: application/json');
+>>>>>>> 3339373198cb1249e76bd31cff568c996753dfb7
 
   echo json_encode($result);
 

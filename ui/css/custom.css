@@ -16,6 +16,12 @@ a, a:focus, a:hover {
     background-color: #fff;
     border: 1px solid #fff;
 }
+
+.map_icon{
+    height:35px;
+    width:16px;
+    background:url(images/map_icon.png) 0 0px;
+}
 /*
  * Base structure
  */
@@ -259,4 +265,6 @@ margin-left: 40%;
 
 #result{
     margin-top:60px;
+    max-height: 650px;
+overflow: scroll;
 }
