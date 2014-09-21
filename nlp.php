@@ -32,7 +32,7 @@ $response = $alchemyapi->taxonomy('text',$demo_text, null);
 
 $result = array();
 
-$link = 'http://nimit.me/The-Game-Of-Choices/places/?types='.$_GET[implode(" ",$result)];
+$link = 'http://nimit.me/the_game_choice/places/?types='.$_GET[implode(" ",$result)];
 
         $ch = curl_init($link);
         curl_setopt($ch, CURLOPT_HEADER, 0);

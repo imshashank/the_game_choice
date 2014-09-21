@@ -23,7 +23,11 @@ if (isset($session)) {
     $request = new FacebookRequest($session, 'GET', '/me/interests/');
     $response = $request->execute();
     $graphObject = $response->getGraphObject();
+	
     var_dump($graphObject);
+	echo "random";
+	echo $graphObject->getNext();
+	var_dump( $graphObject->Next);
    
   
 

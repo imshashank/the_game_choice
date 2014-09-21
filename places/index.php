@@ -122,7 +122,7 @@ for ($i = 0;$i<count($pre_a);$i++){
 	$pre_arr[$pre_a[$i]]= True;
 }
 
-var_dump($pre_arr);
+#var_dump($pre_arr);
 for ($i =0; $i < count($topics);$i++){
 #echo $topics[$i];
 if($topics[$i] != null && !isset($pre_arr[$topics[$i]])){
@@ -149,7 +149,7 @@ foreach ($r as $x){
 	
 }
 	$answer = json_encode($final_answer);
-	#header('Content-Type: application/json');
+	header('Content-Type: application/json');
 	echo $answer;
 #var_dump( $answer);
 
