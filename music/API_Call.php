@@ -29,7 +29,7 @@ class API_Call {
         }
 
         public function getArtists($genre) {
-            
+
            # echo $genre;
             $key = 'FRK9EWQRQHV80DW4S';
             $url = 'http://developer.echonest.com/api/v4/genre/artists?api_key='.$key.'&format=json&name='.$genre;
@@ -128,6 +128,13 @@ class API_Call {
             $post_data = json_encode(array('previews' => $output), JSON_FORCE_OBJECT);
             return $post_data;
         }
+        // return a JSON object in following format:
+        //     categories: list of genres
+        //     songs: list of songs from that genre
+        public function fullSweep($genre) {
+            // if $genre = "" then songs will the empty
+
+        }
     }
     // check $_POST varialbe
     $obj = new API_Call();
@@ -167,7 +174,7 @@ class API_Call {
         echo $pre;
     $artists = $obj->getArtists($_GET['pre']);
     var_dump($artists);
-    
+
     foreach ($artists as $x => $y){
     $result['categories'][]=$y;
     #var_dump($result);
