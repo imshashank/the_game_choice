@@ -29,6 +29,8 @@ class API_Call {
         }
 
         public function getArtists($genre) {
+            
+           # echo $genre;
             $key = 'FRK9EWQRQHV80DW4S';
             $url = 'http://developer.echonest.com/api/v4/genre/artists?api_key='.$key.'&format=json&name='.$genre;
             $curl = curl_init();
@@ -42,10 +44,10 @@ class API_Call {
             $output = array();
             for ($i=0; $i < count($json['response']['artists']); $i++) {
                 $output[$i] = $json['response']['artists'][$i]['name'];
-                echo $output[$i];
-                echo "</br>";
+                #echo $output[$i];
+                #echo "</br>";
             }
-            $post_data = json_encode(array('artists' => $output), JSON_FORCE_OBJECT);
+            $post_data = json_encode(array('artists' => $output),JSON_FORCE_OBJECT);
             curl_close($curl);
             var_dump($output);
             return $post_data;
@@ -129,6 +131,7 @@ class API_Call {
     }
     // check $_POST varialbe
     $obj = new API_Call();
+<<<<<<< HEAD
     // if ( $_GET=['types']){
     // $genres = $obj->getGenres();
     // #var_dump($genres);
@@ -145,6 +148,62 @@ class API_Call {
 
     $obj->getGenres();
     $obj->getArtists('rock');
+=======
+    if ( $_GET=['types'] == 'music'){
+    $genres = $obj->getGenres();
+    #var_dump($genres);
+    $genres=json_decode($genres);
+    foreach ($genres as $x => $y){
+    $result['categories'][]=$y;
+    #var_dump($result);
+    }
+     $result['title'][]='';
+        echo json_encode($result);
+    }
+
+    if ( $_GET['types'] == 'genre'){
+        $pre = $_GET['pre'];
+        $pre = str_replace(' ', '%20', $pre);
+        echo $pre;
+    $artists = $obj->getArtists($_GET['pre']);
+    var_dump($artists);
+    
+    foreach ($artists as $x => $y){
+    $result['categories'][]=$y;
+    #var_dump($result);
+    }
+     $result['title'][]='';
+        echo json_encode($result);
+    }
+
+
+    if ( $_GET=['types'] == 'artist'){
+    $genres = $obj->getGenres();
+    #var_dump($genres);
+    $genres=json_decode($genres);
+    foreach ($genres as $x => $y){
+    $result['categories'][]=$y;
+    #var_dump($result);
+    }
+     $result['title'][]='';
+        echo json_encode($result);
+    }
+
+    if ( $_GET=['types'] == 'songs'){
+    $genres = $obj->getGenres();
+    #var_dump($genres);
+    $genres=json_decode($genres);
+    foreach ($genres as $x => $y){
+    $result['categories'][]=$y;
+    #var_dump($result);
+    }
+     $result['title'][]='';
+        echo json_encode($result);
+    }
+
+    /*
+    $obj->getPreview('In The End');
+>>>>>>> 0c7d0ae3765cb5b51d1d5d5b96ecd17ce5a7a07f
     //$obj->getPreview('i remember');
     if (array_key_exists('artist',$_POST)) {
         $obj -> getArtists($_POST['artist']);
