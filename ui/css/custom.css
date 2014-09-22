@@ -20,6 +20,8 @@ a, a:focus, a:hover {
 .map_icon{
     height:35px;
     width:16px;
+    display: inline;
+    float: right;
     background:url(../images/map_icon.png) 0 0px;
 }
 .map_icon:hover{

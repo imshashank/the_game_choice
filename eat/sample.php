@@ -100,7 +100,7 @@ function request($host, $path) {
 function search($term, $location) {
     $url_params = array();
     
-    $url_params['types'] = $term ?: $GLOBALS['DEFAULT_TERM'];
+    $url_params['term'] = $term ?: $GLOBALS['DEFAULT_TERM'];
     //$url_params['offset'] = $GLOBALS['DEFAULT_OFFSET'];
     $url_params['location'] = $location?: $GLOBALS['DEFAULT_LOCATION'];
     $url_params['limit'] = $GLOBALS['SEARCH_LIMIT'];
@@ -261,12 +261,7 @@ $result['title'][$z]['url']=$url[$z];
 //  get_places('-33.86820', '151.1945860', '800',$type_post);
 //}
 
-<<<<<<< HEAD
-
-    header('Content-Type: application/json');
-=======
 header('Content-Type: application/json');
->>>>>>> 3339373198cb1249e76bd31cff568c996753dfb7
 
   echo json_encode($result);
 
