@@ -36,9 +36,9 @@ $DEFAULT_TERM = $_GET['types'];
 
 
 
-#$DEFAULT_LOCATION = $_GET['city'];
+$DEFAULT_LOCATION = $_GET['city'];
 #echo $DEFAULT_LOCATION;
-$DEFAULT_LOCATION = 'Atlanta, GA';
+#$DEFAULT_LOCATION = 'Atlanta, GA';
 $SEARCH_LIMIT = 10;
 $SEARCH_PATH = '/v2/search/';
 $BUSINESS_PATH = '/v2/business/';

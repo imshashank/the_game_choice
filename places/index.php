@@ -9,6 +9,8 @@ $pre = str_replace(" ", "&", $_GET["pre"]);
 
 
 $type_post = $_GET["types"];
+$lat_val = $_GET['lat'];
+$lng_val=$_GET['lng'];
 $type_post = str_replace("%20", "&", $type_post);
 $type_post = str_replace(" ", "&", $type_post);
 
@@ -49,7 +51,7 @@ $res_temp = str_replace(" ", "|", $res_temp);
 $type_post = $type_post.'&'.$pre.'&'.$res_temp;
 
 #echo $type_post;
-get_places('33.7489954', '-84.3879824', '800',$type_post,$res_temp_1);
+get_places($lat_val, $lng_val, '800',$type_post,$res_temp_1);
 
 //if (isset($_POST["types"])){
 	#echo $type_post;
